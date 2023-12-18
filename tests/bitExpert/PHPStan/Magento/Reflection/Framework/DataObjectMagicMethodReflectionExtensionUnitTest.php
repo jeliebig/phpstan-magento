@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace bitExpert\PHPStan\Magento\Reflection\Framework;
 
+use bitExpert\PHPStan\Magento\Reflection\DataProvider\DependencyInjectionDataProvider;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\MixedType;
@@ -23,6 +25,16 @@ use PHPUnit\Framework\TestCase;
 
 class DataObjectMagicMethodReflectionExtensionUnitTest extends TestCase
 {
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+
+    /**
+     * @var DependencyInjectionDataProvider
+     */
+    private $dataProvider;
+
     /**
      * @var DataObjectMagicMethodReflectionExtension
      */
@@ -35,7 +47,9 @@ class DataObjectMagicMethodReflectionExtensionUnitTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->extension = new DataObjectMagicMethodReflectionExtension();
+        $this->reflectionProvider = $this->createMock(ReflectionProvider::class);
+        $this->dataProvider = $this->createMock(DependencyInjectionDataProvider::class);
+        $this->extension = new DataObjectMagicMethodReflectionExtension($this->reflectionProvider, $this->dataProvider);
         $this->classReflection = $this->createMock(ClassReflection::class);
     }
 
