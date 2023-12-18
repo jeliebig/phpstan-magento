@@ -74,6 +74,10 @@ services:
 		class: bitExpert\PHPStan\Magento\Autoload\DataProvider\ClassLoaderProvider
 		arguments:
 			magentoRoot: %magento.magentoRoot%
+	dependencyInjectionDataProvider:
+		class: bitExpert\PHPStan\Magento\Reflection\DataProvider\DependencyInjectionDataProvider
+		arguments:
+			magentoRoot: %magento.magentoRoot%
 	mockAutoloader:
 		class: bitExpert\PHPStan\Magento\Autoload\MockAutoloader
 		tags:
